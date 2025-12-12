@@ -13,8 +13,8 @@ stages {
   
 stage('Build') {
     steps {
-      sh './gradlew
-      -Dhttps.proxyHost='proxy1-rech'
+      sh './gradlew build
+      -Dhttps.proxyHost="proxy1-rech"
       -Dhttps.proxyPort=3128'
     }
   }
