@@ -11,7 +11,7 @@ pipeline {
       steps { sh 'npm ci' }
     }
     stage('Build') {
-      steps { gradlew -Dhttps.proxyHost="proxy1-rech" -Dhttps.proxyPort=3128}
+      steps { gradlew build -Dhttps.proxyHost="proxy1-rech" -Dhttps.proxyPort=3128}
     }
 
     
