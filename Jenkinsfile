@@ -13,10 +13,16 @@ pipeline {
     stage('Build') {
       steps { sh 'npm run build' }
     }
+    
     stage('SonarQube Analysis') {
       steps {
         withSonarQubeEnv('SonarQube') {
-          sh 'npm run sonar'
+          steps{sh './gradlew sonar \
+  -Dsonar.projectKey=Jacoco \
+  -Dsonar.projectName='Jacoco' \
+  -Dsonar.host.url=http://localhost:9000 \
+  -Dsonar.token=sqp_8867b36a25f37910d8e2684a323fa61eb6d97708'
+                ]
         }
       }
     }
