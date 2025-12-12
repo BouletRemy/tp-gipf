@@ -8,11 +8,12 @@ pipeline {
       steps { checkout scm }
     }
     stage('Install') {
-      steps { sh 'gradlew -Dhttps.proxyHost=proxy1-rech -Dhttps.proxyPort=3128' }
+      steps { sh 'npm ci' }
     }
     stage('Build') {
-      steps { sh 'npm run build' }
+      steps { sh 'gradlew -Dhttps.proxyHost=proxy1-rech -Dhttps.proxyPort=3128' }
     }
+
     
     stage('SonarQube Analysis') {
       steps {
