@@ -32,9 +32,7 @@ stage('Build') {
     }
   }
 }
-  stag('Jacoco'){
-       echo "peutpas fonctionner"
-       }
+
   post {
     always {
       junit '/src/test/java/gipf//.xml'
