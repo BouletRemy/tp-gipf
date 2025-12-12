@@ -2,6 +2,7 @@ pipeline {
 agent any
 environment {
   SONAR_HOST_URL = 'http://localhost:9000'
+  SONAR_TOKEN = 'sqp_8867b36a25f37910d8e2684a323fa61eb6d97708'
   }
 stages {
   stage('Checkout') {
