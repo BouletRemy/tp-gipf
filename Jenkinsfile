@@ -13,7 +13,7 @@ stages {
   
 stage('Build') {
     steps {
-      sh './gradlew clean build'
+      sh './gradlew build'
     }
   }
   stage('SonarQube Analysis') {
@@ -27,15 +27,15 @@ stage('Build') {
 -Dsonar.host.url=${SONAR_HOST_URL}
 -Dsonar.login=${SONAR_TOKEN}
 '''
+        }
       }
     }
   }
-  }
 }
-post {
-always {
-junit '/build/test-results//.xml'
-archiveArtifacts artifacts: '**/build/libs/.jar', allowEmptyArchive: true
-}
-}
+  post {
+    always {
+      junit '/build/test-results//.xml'
+      archiveArtifacts artifacts: '**/build/libs/.jar', allowEmptyArchive: true
+    }
+  }  
 }
