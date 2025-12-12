@@ -1,31 +1,44 @@
 pipeline {
-  agent any
-  environment {
-    SONAR_TOKEN = 'sqp_8867b36a25f37910d8e2684a323fa61eb6d97708'
+agent any
+environment {
+  SONAR_HOST_URL = 'http://localhost:9000'
   }
-  stages {
-    stage('Checkout') {
-      steps { checkout scm }
+stages {
+  stage('Checkout') {
+    steps {
+    checkout scm
     }
-    stage('Install') {
-      steps { sh 'npm ci' }
+  }
+stage('Install') {
+  steps {
+sh 'npm ci'
+  }
+  }
+stage('Build') {
+    steps {
+      sh './gradlew clean build'
     }
-    stage('Build') {
-      steps { gradlew  }
-    }
-
-    
-    stage('SonarQube Analysis') {
-      steps {
-        withSonarQubeEnv('SonarQube') {
-          steps{sh './gradlew sonar \
-  -Dsonar.projectKey=Jacoco \
-  -Dsonar.projectName='Jacoco' \
-  -Dsonar.host.url=http://localhost:9000 \
-  -Dsonar.token=sqp_8867b36a25f37910d8e2684a323fa61eb6d97708'
-               }
-        }
+  }
+  stage('SonarQube Analysis') {
+    steps {
+      withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+      withSonarQubeEnv('SonarQube') {
+      sh '''
+./gradlew sonarqube
+-Dsonar.projectKey=Jacoco
+-Dsonar.projectName=Jacoco
+-Dsonar.host.url=${SONAR_HOST_URL}
+-Dsonar.login=${SONAR_TOKEN}
+'''
       }
     }
   }
+  }
+}
+post {
+always {
+junit '/build/test-results//.xml'
+archiveArtifacts artifacts: '**/build/libs/.jar', allowEmptyArchive: true
+}
+}
 }
