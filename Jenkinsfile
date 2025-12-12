@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    SONAR_TOKEN = sqp_389a532309e6840bf3ce71d71a7b8bc56b12f39c
+    SONAR_TOKEN = sqp_8867b36a25f37910d8e2684a323fa61eb6d97708
   }
   stages {
     stage('Checkout') {
@@ -23,7 +23,7 @@ pipeline {
   -Dsonar.projectName='Jacoco' \
   -Dsonar.host.url=http://localhost:9000 \
   -Dsonar.token=sqp_8867b36a25f37910d8e2684a323fa61eb6d97708'
-                ]
+               }
         }
       }
     }
