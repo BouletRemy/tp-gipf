@@ -13,7 +13,7 @@ stages {
   
 stage('Build') {
     steps {
-      sh './gradlew build -Dhttps.proxyHost="proxy1-rech" -Dhttps.proxyPort=3128'
+      sh './gradlew build -Dhttps.proxyHost="proxy1-rech" -Dhttps.proxyPort=3128 --scan'
     }
   }
   stage('SonarQube Analysis') {
@@ -32,6 +32,9 @@ stage('Build') {
     }
   }
 }
+  stag('Jacoco'){
+       echo "peutpas fonctionner"
+       }
   post {
     always {
       junit '/src/test/java/gipf//.xml'
