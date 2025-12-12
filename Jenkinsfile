@@ -34,7 +34,7 @@ stage('Build') {
 }
   post {
     always {
-      junit '/build/test-results//.xml'
+      junit '/src/test/java/gipf//.xml'
       archiveArtifacts artifacts: '**/build/libs/.jar', allowEmptyArchive: true
     }
   }  
